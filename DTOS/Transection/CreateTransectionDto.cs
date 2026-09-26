@@ -1,0 +1,1 @@
+public record CreateTransectionDto(decimal value, string? description, int categoryId );

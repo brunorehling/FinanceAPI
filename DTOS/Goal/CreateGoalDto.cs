@@ -1,0 +1,1 @@
+public record CreateGoalDto(string Name, decimal TargetAmount, DateTime StartDate, DateTime EndDate, int? CategoryId);

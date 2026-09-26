@@ -1,0 +1,1 @@
+public record UpdateTransectionDto(decimal value, string? description, int categoryId );

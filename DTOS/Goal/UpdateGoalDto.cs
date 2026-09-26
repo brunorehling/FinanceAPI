@@ -1,0 +1,1 @@
+public record UpdateGoalDto(string Name, decimal TargetAmount, DateTime StartDate, DateTime EndDate, int? CategoryId);

@@ -1,0 +1,1 @@
+public record CreateCategoryDto(string Name, TransectionType type );
