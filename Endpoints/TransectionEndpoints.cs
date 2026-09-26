@@ -13,11 +13,15 @@ public static class TransectionEndpoints
             return Results.Ok(result);
         }).RequireAuthorization();
 
-        transections.MapGet("/summary", async (int year, int month, ClaimsPrincipal userClaims, ITransectionService service) =>
+        transections.MapGet("/summary", async (int? year, int? month, ClaimsPrincipal userClaims, ITransectionService service) =>
         {
+            var now = DateTime.UtcNow;
+            var y = year ?? now.Year;
+            var m = month ?? now.Month;
+
             var userId = int.Parse(userClaims.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var (income, expenses) = await service.GetMonthlySummaryAsync(userId, year, month);
-            return Results.Ok(new { year, month, income, expenses, balance = income - expenses });
+            var (income, expenses) = await service.GetMonthlySummaryAsync(userId, y, m);
+            return Results.Ok(new { year = y, month = m, income, expenses, balance = income - expenses });
         }).RequireAuthorization();
 
         transections.MapPost("/", async (CreateTransectionDto dto, ClaimsPrincipal userClaims, ITransectionService service) =>
